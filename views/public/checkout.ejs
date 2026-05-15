@@ -1,0 +1,74 @@
+<%- include('../partials/header') %>
+
+<div class="container page-card">
+  <h1 style="margin-bottom:1.5rem">Ödeme</h1>
+  <form id="checkoutForm">
+    <h2 style="font-size:1.1rem;margin-bottom:1rem">Teslimat Bilgileri</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ad Soyad *</label>
+        <input type="text" name="name" required>
+      </div>
+      <div class="form-group">
+        <label>Telefon *</label>
+        <input type="tel" name="phone" required placeholder="05XX XXX XX XX">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>E-posta</label>
+      <input type="email" name="email">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>İl</label>
+        <input type="text" name="city" value="Konya">
+      </div>
+      <div class="form-group">
+        <label>İlçe</label>
+        <input type="text" name="district">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Adres *</label>
+      <textarea name="address" rows="3" required></textarea>
+    </div>
+
+    <h2 style="font-size:1.1rem;margin:2rem 0 1rem">Ödeme Yöntemi</h2>
+    <div class="payment-options">
+      <% if (paymentMethods.credit_card) { %>
+        <label class="payment-option">
+          <input type="radio" name="payment_method" value="credit_card">
+          <span>💳 Kredi Kartı ile Online Ödeme</span>
+        </label>
+      <% } %>
+      <% if (paymentMethods.cash_on_delivery) { %>
+        <label class="payment-option">
+          <input type="radio" name="payment_method" value="cash_on_delivery" checked>
+          <span>💵 Kapıda Nakit Ödeme</span>
+        </label>
+      <% } %>
+      <% if (paymentMethods.card_on_delivery) { %>
+        <label class="payment-option">
+          <input type="radio" name="payment_method" value="card_on_delivery">
+          <span>💳 Kapıda Kart ile Ödeme</span>
+        </label>
+      <% } %>
+    </div>
+
+    <div class="form-group">
+      <label>Sipariş Notu</label>
+      <textarea name="notes" rows="2" placeholder="Opsiyonel"></textarea>
+    </div>
+
+    <p style="margin:1rem 0;font-size:1.1rem">Sipariş Toplamı: <strong id="checkoutTotal">0 ₺</strong></p>
+    <button type="submit" class="btn btn-primary btn-block">Siparişi Tamamla</button>
+  </form>
+  <div id="orderSuccess" style="display:none;text-align:center;padding:2rem">
+    <h2 style="color:var(--primary)">✓ Siparişiniz Alındı!</h2>
+    <p>Sipariş numaranız: <strong id="orderNumber"></strong></p>
+    <a href="/" class="btn btn-primary" style="margin-top:1rem">Ana Sayfaya Dön</a>
+  </div>
+</div>
+
+<script src="/js/checkout.js"></script>
+<%- include('../partials/footer') %>

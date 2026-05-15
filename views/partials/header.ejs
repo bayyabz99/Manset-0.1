@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | <%= settings?.site_name || 'Manşet Parti & Organizasyon' %></title>
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : (settings?.site_tagline || 'Organizasyon ve parti malzemeleri') %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      MANŞET PARTİ
+      <span>Organizasyon & Parti Malzemeleri</span>
+    </a>
+    <button class="menu-toggle" aria-label="Menü" id="menuToggle">☰</button>
+    <nav class="nav-main" id="mainNav">
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Ana Sayfa</a>
+      <a href="/urunler" class="<%= currentPath?.startsWith('/urun') ? 'active' : '' %>">Ürünler</a>
+      <a href="/gerceklestirdigimiz-isler" class="<%= currentPath?.includes('isler') || currentPath?.startsWith('/is/') ? 'active' : '' %>">İşlerimiz</a>
+      <a href="/iletisim" class="<%= currentPath === '/iletisim' ? 'active' : '' %>">İletişim</a>
+    </nav>
+    <div class="header-actions">
+      <a href="/sepet" class="cart-btn" aria-label="Sepet">
+        🛒 <span class="cart-label">Sepet</span> <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+<main>

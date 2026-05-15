@@ -1,0 +1,72 @@
+<%- include('../partials/header') %>
+
+<section class="hero">
+  <div class="container">
+    <h1><%= settings?.site_tagline || 'Organizasyonlarınızı Renklendiriyoruz' %></h1>
+    <p>Organizasyon & partiye dair her şey — pastane ürünleri, süsleme malzemeleri ve profesyonel organizasyon hizmetleri.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="/urunler" class="btn btn-outline">Ürünleri İncele</a>
+      <a href="/gerceklestirdigimiz-isler" class="btn btn-outline">İşlerimizi Gör</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">Öne Çıkan Ürünler</h2>
+    <p class="section-sub">Parti malzemeleri ve özel gün ürünleri</p>
+    <div class="product-grid">
+      <% featuredProducts.forEach(function(p) { %>
+        <article class="product-card">
+          <a href="/urun/<%= p.slug %>">
+            <div class="product-card-image">
+              <% if (p.discount_percent > 0) { %><span class="badge-discount">%<%= p.discount_percent %></span><% } %>
+              <% if (p.stock <= 0) { %><span class="badge-soldout">TÜKENDİ</span><% } %>
+              <% if (p.image_path) { %>
+                <img src="<%= p.image_path %>" alt="<%= p.title %>" loading="lazy">
+              <% } else { %>
+                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#e11d48">🎈</div>
+              <% } %>
+            </div>
+            <div class="product-card-body">
+              <h3 class="product-card-title"><%= p.title %></h3>
+              <div class="product-price">
+                <span class="price-current"><%= formatPrice(p.sale_price || p.price) %></span>
+                <% if (p.sale_price) { %><span class="price-old"><%= formatPrice(p.price) %></span><% } %>
+              </div>
+            </div>
+          </a>
+          <div class="product-card-body" style="padding-top:0">
+            <button class="btn-add" data-add-cart="<%= p.id %>" data-title="<%= p.title %>" data-price="<%= p.sale_price || p.price %>" data-slug="<%= p.slug %>" <%= p.stock <= 0 ? 'disabled' : '' %>>
+              <%= p.stock <= 0 ? 'Tükendi' : 'Sepete Ekle' %>
+            </button>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+    <p style="text-align:center;margin-top:2rem"><a href="/urunler" class="btn btn-primary">Tüm Ürünler</a></p>
+  </div>
+</section>
+
+<% if (featuredOrgs.length) { %>
+<section style="background:white">
+  <div class="container">
+    <h2 class="section-title">Gerçekleştirdiğimiz İşler</h2>
+    <p class="section-sub">Açılış, doğum günü, hastane odası ve daha fazlası</p>
+    <div class="portfolio-grid">
+      <% featuredOrgs.forEach(function(o) { %>
+        <a href="/is/<%= o.slug %>" class="portfolio-card">
+          <% if (o.image_path) { %><img src="<%= o.image_path %>" alt="<%= o.title %>" loading="lazy"><% } %>
+          <div class="portfolio-card-body">
+            <% if (o.category_name) { %><span class="portfolio-tag"><%= o.category_name %></span><% } %>
+            <h3><%= o.title %></h3>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+    <p style="text-align:center;margin-top:2rem"><a href="/gerceklestirdigimiz-isler" class="btn btn-primary">Tüm İşler</a></p>
+  </div>
+</section>
+<% } %>
+
+<%- include('../partials/footer') %>
