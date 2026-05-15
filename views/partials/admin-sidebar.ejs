@@ -1,0 +1,28 @@
+<aside class="admin-sidebar">
+  <div class="admin-brand">MANŞET PARTİ</div>
+  <nav class="admin-nav">
+    <div class="admin-nav-section">
+      <span>Genel</span>
+      <a href="/admin" class="<%= title === 'Dashboard' ? 'active' : '' %>">📊 Dashboard</a>
+    </div>
+    <div class="admin-nav-section">
+      <span>Ürünler</span>
+      <a href="/admin/urunler" class="<%= title === 'Ürünler' || title.includes('Ürün') ? 'active' : '' %>">📦 Tüm Ürünler</a>
+      <a href="/admin/urunler/yeni">➕ Yeni Ürün Ekle</a>
+      <a href="/admin/kategoriler" class="<%= title === 'Ürün Kategorileri' ? 'active' : '' %>">🏷️ Ürün Kategorileri</a>
+    </div>
+    <div class="admin-nav-section">
+      <span>İçerik</span>
+      <a href="/admin/organizasyonlar" class="<%= title.includes('Organizasyon') ? 'active' : '' %>">🎉 Organizasyonlar</a>
+    </div>
+    <div class="admin-nav-section">
+      <span>Sipariş & Ayar</span>
+      <a href="/admin/siparisler" class="<%= title === 'Siparişler' ? 'active' : '' %>">🛒 Siparişler</a>
+      <a href="/admin/ayarlar" class="<%= title === 'Sistem Ayarları' ? 'active' : '' %>">⚙️ Sistem Ayarları</a>
+    </div>
+    <div class="admin-nav-section">
+      <a href="/" target="_blank">🌐 Siteyi Görüntüle</a>
+      <a href="/admin/cikis">🚪 Çıkış</a>
+    </div>
+  </nav>
+</aside>

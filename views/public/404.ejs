@@ -1,0 +1,7 @@
+<%- include('../partials/header') %>
+<div class="container empty-state" style="padding:4rem 0">
+  <h1 style="font-size:3rem;margin-bottom:.5rem">404</h1>
+  <p><%= typeof message !== 'undefined' ? message : 'Aradığınız sayfa bulunamadı.' %></p>
+  <a href="/" class="btn btn-primary" style="margin-top:1.5rem">Ana Sayfa</a>
+</div>
+<%- include('../partials/footer') %>

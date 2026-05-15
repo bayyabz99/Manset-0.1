@@ -1,0 +1,56 @@
+<%- include('../../partials/admin-layout-start') %>
+
+<div class="page-actions">
+  <h2 style="font-size:1.1rem">Kategoriler</h2>
+  <button type="button" class="btn-admin" id="btnNewCategory">+ Yeni Kategori</button>
+</div>
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Ad</th><th>Slug</th><th>Sıra</th><th></th></tr></thead>
+    <tbody id="categoryTable">
+      <% categories.forEach(function(c) { %>
+        <tr data-id="<%= c.id %>">
+          <td><%= c.name %></td>
+          <td><code><%= c.slug %></code></td>
+          <td><%= c.sort_order %></td>
+          <td><button type="button" class="btn-delete-cat" data-id="<%= c.id %>" style="color:#b91c1c;background:none;border:none;cursor:pointer">Sil</button></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<dialog id="catDialog" style="border:none;border-radius:12px;padding:2rem;max-width:400px">
+  <form id="catForm">
+    <h3 style="margin-bottom:1rem">Yeni Kategori</h3>
+    <label>Ad</label>
+    <input type="text" name="name" required style="width:100%;margin:.5rem 0 1rem;padding:.5rem">
+    <label>Açıklama</label>
+    <textarea name="description" style="width:100%;margin:.5rem 0 1rem;padding:.5rem"></textarea>
+    <button type="submit" class="btn-admin">Kaydet</button>
+  </form>
+</dialog>
+
+<script>
+document.getElementById('btnNewCategory').onclick = () => document.getElementById('catDialog').showModal();
+document.getElementById('catForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const res = await fetch('/api/admin/categories', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: fd.get('name'), description: fd.get('description') })
+  });
+  if (res.ok) location.reload();
+};
+document.querySelectorAll('.btn-delete-cat').forEach(btn => {
+  btn.onclick = async () => {
+    if (!confirm('Silinsin mi?')) return;
+    await fetch(`/api/admin/categories/${btn.dataset.id}`, { method: 'DELETE' });
+    location.reload();
+  };
+});
+</script>
+
+<%- include('../../partials/admin-layout-end') %>
